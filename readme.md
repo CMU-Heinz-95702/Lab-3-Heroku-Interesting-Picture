@@ -1,7 +1,7 @@
 # 95-702 Distributed Systems for Information Systems Management
 # Lab 3 - Creating Containers and Deploying to the Cloud
 
-***For Lab 3, the 1/4 point checkpoint is due to your specific TA during your lab session.*** The full lab is due before Monday's lecture, 1:25 PM EST 19-Sept-2022. The final checkpoint can be shown to any TA.
+***For Lab 3, the 1/4 point checkpoint is due to your specific TA during your lab session.*** The full lab is due before Monday's lecture, 2:00 PM EST 6-Feb-2023. The final checkpoint can be shown to any TA.
 
 After this lab, you will be able to: create a local Docker container to run a servlet; create a Docker container in the cloud for that same servlet; understand basic Cloud terminology; and explain the trade-offs of using containers in the Cloud.
 
@@ -38,13 +38,13 @@ to check if it is running. (All commands are preceded by "docker".) You should s
 ***Windows Note: if you don't see the above output and you're using Windows:***
 
 From Joseph Perrino:
-If a Windows machine runs into an error where docker ps does not work after installing Docker and/or they get some kind of infinitely looping error that says there’s some issue with Docker Desktop when clicking on its settings, do the following:
+>If a Windows machine runs into an error where docker ps does not work after installing Docker and/or they get some kind of infinitely looping error that says there’s some issue with Docker Desktop when clicking on its settings, do the following:
 
-Completely uninstall Docker (probably through Settings > Apps > Docker > Uninstall). This may also require removing references to Docker in the Windows Registrar.
+>Completely uninstall Docker (probably through Settings > Apps > Docker > Uninstall). This may also require removing references to Docker in the Windows Registrar.
 
-Enable HyperV on Windows 10 using PowerShell via this link: https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v
+>Enable HyperV on Windows 10 using PowerShell via this link: https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v
 
-Restart your computer. Run the commands in that link again to verify HyperV is installed. Follow the instructions in this link: https://andrewlock.net/installing-docker-desktop-for-windows/
+>Restart your computer. Run the commands in that link again to verify HyperV is installed. Follow the instructions in this link: https://andrewlock.net/installing-docker-desktop-for-windows/
 
 ***End of Windows note***
 
@@ -80,7 +80,7 @@ The command they suggest trying runs a container with an Ubuntu (linux) command 
 
 ### 1.2 Creating a Custom Docker Container
 
-1. Creating a war file (see https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-ee-application.html)
+1. Creating a war file (for all the details, see https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-ee-application.html)
 
 First, create a directory (folder) called "docker"; remember where it is.
 
@@ -88,12 +88,12 @@ Follow these "if-else, if-else" directions:
 
 **If you already see the file InterestingPicture-1.0-SNAPSHOT.war ...**
 
-- somewhere in your project panel, you don't have to do the Build part below. The war file would be in the target directory (or possibly in the target/out directory).
+- ... somewhere in your project panel, you don't have to do the Build part below. The war file would be in the target directory (or possibly in the target/out directory).
 
 
-**else in IntelliJ, click Build->Build Artifacts. if one of the choices is "InterestingPicture:war"**
+**else in IntelliJ, click Build->Build Artifacts. If one of the choices is "InterestingPicture:war" ...**
 
-- click the arrow to get the sub-menu and click Build. As above, this should create the file InterestingPicture-1.0-SNAPSHOT.war, which will be in the target (or possibly target/out) directory.
+- ... click the arrow to get the sub-menu and click Build. As above, this should create the file InterestingPicture-1.0-SNAPSHOT.war, which will be in the target (or possibly target/out) directory.
 
 **else** do the following:
 
@@ -108,8 +108,7 @@ Follow these "if-else, if-else" directions:
 **end if**
 
 You need to copy the war file, so figure out what directory it's in:  
-- right click on it to bring up its Properties, where you can see its directory
-  path (or choose Reveal in Finder on a Mac).
+- right click on it to bring up its Properties, where you can see its directory path (or choose Reveal in Finder on a Mac).
 - copy the war file to your docker directory, but re-name it **ROOT.war**. It is important that you name it ***exactly*** this: it's case-sensitve.
 
 2. Creating a custom Docker container using Dockerfile
@@ -168,120 +167,42 @@ It will display something like this (details will vary; "hello world" will likel
 
 Recall that the ***cloud*** is a fancy term for "someone else's servers". Some useful properties of cloud computing include not having to buy hardware, not needing to keep system software (like operating systems) up-to-date, not worrying about exactly where your application is running (although you should think about some possible downsides of that - for example, how is security handled in the cloud? What is the network latency of connecting to the application?), the ability to scale  - up or down - the number of servers in use based on current demand, and geographic placement to put servers closer to clients.
 
-In this lab, you'll use [Heroku](https://www.heroku.com/), which has a free tier for small-scale use. Other commercial cloud providers include [Amazon AWS](https://aws.amazon.com/), [Alibaba Cloud](https://us.alibabacloud.com/en), and [Microsoft Azure](https://azure.microsoft.com/en-us/).
+In this lab, you'll use [Codespaces](https://github.com/features/codespaces) which has a free tier for small-scale use. As you can see from the URL, it is part of github (owned by Microsoft) Other commercial cloud providers include [Amazon AWS](https://aws.amazon.com/), [Alibaba Cloud](https://us.alibabacloud.com/en), and [Heroku](https://heroku.com)
 
-As with Docker, the Heroku commands start with "heroku", sometimes have flags (starting with a single or double -), are case-sensitive, and use generated names for your application. The process is to **create** a Heroku app, **push** your Web servlet to it, **release** it, then **open** it (run it). Make sure you follow the directions carefully - in particular, make sure your .sh file is correct. The push may be slow, so be patient - and this is another reason to be careful: you don't want to repeat the commands.
+### 2.1 Get started with the github
+1. If you already have a github account, use that. If you do not have a github account, go to [github.com](https://github.com) and create one
 
-### 2.1 Get started with the Heroku cloud provider
-1. Create a Heroku account: Go to https://signup.heroku.com/login and register an account. You may choose your role as Student.  
+2. Create a new repository on github named Lab3; make it private. You can add a README file if you'd like, but it's not required.
 
-2. Follow the instructions and install heroku-cli on your system. Note that you must have Git installed in your system.  See https://devcenter.heroku.com/articles/heroku-cli
+3. In the Lab3 repo, click the Add file drop-down and choose Upload Files. Drag and drop your Dockerfile and ROOT.war. At the bottom, click Commit Changes.
 
-3. This website also contains the link to configure Git if you don't have it.
-- Git installation
-- First-time Git setup
+### 2.2 Get started with Codespaces
+1. Go to [Codespaces](https://github.com/features/codespaces). You can browse this page and its links as needed. Click Get started for free.
 
-4. There are a series of steps, described below, using heroku; you may have to repeat some of them. For convenience, they are in the file "herokuCommands" in this repository. Note that "heroku create" will generate a unique name for your app that is required in the later commands, so replace <your-app-here> with that name.
+2. Click New codespace. Click Select a repository, choose your Lab3 repo. Click main, US East, 2-core (the free mode), and Create codespace.
 
-After installation, open your terminal or CMD window and type
-
-        heroku login
-
-As with Docker, all Heroku commands begin with "heroku".
-
-5. Press enter and it will prompt and navigate you to the browser. Then click log in. Your computer should have access to Heroku services, including a dashboard (although the steps below use the Command-Line Interface).
-
-### 2.2 Creating and Pushing a Container
-
-1. Create a new directory named "heroku" (just to keep it separate from the local Dockerfile above in the docker directory). Again use a terminal or CMD window, navigate to the heroku directory, and do all the heroku commands **from the terminal or CMD prompt in that directory!**
-
-Copy the Dockerfile from part 1 and make the following two changes – see the note above about Windows files: this needs to be a text file without the .txt extension, and it ***must*** use UNIX/Linux line endings.
-
-***Change # 1:***
-
-Before the last line (which says CMD ["catalina.sh", "run"] ), un-comment the following lines (i.e. remove the hashtags):
-
-        COPY tomcat_starter.sh /home/
-        CMD chmod +x /home/tomcat_starter.sh; /home/tomcat_starter.sh
-
-***Change # 2:***
-
-Comment out the last line with a hashtag so that it looks like this:
-
-        #CMD ["catalina.sh", "run"]
-
-2. Create this bash shell script, a text file named “tomcat_starter.sh”.
-
-___Again, in Windows, follow the directions above about line endings; this is a text file,
-but with the .sh extension, *NOT* .txt or .sh.txt.___
-
-Note: the first line is ***required*** to begin with a hashtag; it's not a comment, it identifies this file as a bash script. Also, **do not indent**: all lines should be left-justified.
+3. The files from Lab3 should show up on the left side. You should be able to view them. On the right side, click the +file (it's an open square) icon, name the new file devcontainer.json. Edit the file to contain these lines:
 
 ```
-#!/bin/bash
-# The above line, #!/bin/bash, identifies this file
-# as a bash shell script.
-
-# It should be made executable using
-#    CMD chmod +x /home/tomcat_starter.sh
-# in the Dockerfile.
-
-# sed is the Linux stream editor used to edit files in-place
-#    automatically instead of manually
-# The s/a/b/ option substitutes the first thing (8080) for
-#    the second thing ($PORT) in the server.xml file
-
-# Change the configuration of Tomcat so that it listens to
-# the port assigned by Heroku
-sed -i s/8080/$PORT/ /usr/local/tomcat/conf/server.xml
-
-# delete the default ROOT directory so ROOT.war is used
-rm -rf /usr/local/tomcat/webapps/ROOT
-
-# start the server using the built-in catalina.sh bash script
-catalina.sh run
-
+{
+    "build": {
+        "dockerfile": "Dockerfile",
+        "forwardPorts": [8080]
+    }
+}
 ```
 
-3. Copy the ROOT.war file from the docker directory (or from IntelliJ, again). So there should be three files in this directory: ROOT.war, Dockerfile, tomcat_starter.sh
+4. <something something> When asked, Do you want to add Docker extensions?, answer yes. The Docker logo and some Information should appear.
 
+5. Do the same Docker commands as in Part 1:
 
-4. Run this series of heroku commands on the command line **from the heroku directory**, one at a time; this may take a few minutes, so be patient:
+        docker build -t interesting_picture .
+        docker images
+        docker run --rm -it -p 8080:8080 interesting_picture
 
-        heroku container:login
+InterestingPicture should run in a browser window.        
 
-***M1 Note: If you're using a MacBook with some variant of the M1 chip, also do this:***
-
-        export DOCKER_DEFAULT_PLATFORM=linux/amd64
-
-<h6>Source:
-
-https://medium.com/geekculture/from-apple-silicon-to-heroku-docker-registry-without-swearing-36a2f59b30a3
-
-</h6>
-
-***End of M1 Note***
-
-Next:        
-
-        heroku create
-
-**->** This will display a system generated app name; the commands below use "serene-basin-70362", but **yours will be different**: heroku assigns this name to your app; copy it carefully.
-
-The next command may take a few moments, be patient.
-
-        heroku container:push web -a serene-basin-70362
-        heroku container:release web -a serene-basin-70362
-        heroku open -a serene-basin-70362
-
-The InterestingPicture app should show up in your browser.
-
-A few utilities if things go wrong:
-
-        heroku apps # which apps you've pushed
-        heroku apps:destroy serene-basin-70362 # you're only allowed 5 on the free tier
-        heroku logs --tail -a serene-basin-70362 # if you get a heroku error message in the browser
-
+6. Copy the address in the browser bar; it will have some wacky auto-generated name. Open a new browser tab and copy the address, just to see that this address works on its own.
 
 ## Part 3: Cloud and Containers Concepts
 
@@ -299,15 +220,15 @@ You must be on campus, or using the campus VPN, to view this article.
 
  i) Is a service like AWS an example of IaaS, Paas, or SaaS?
 
- ii) What property makes Docker containers suitable for version control?
+ ii) What property makes Docker containers suitable for version control? (If you don't know what version control is, see this: https://en.wikipedia.org/wiki/Version_control)
 
 
  ---
 
 # :checkered_flag: **LAB CREDIT:  To get full lab credit, show a TA:** #
 
-  ## ***a) InterestingPicture running in local Docker - checkpoint***
+  ## ***a) InterestingPicture running in local Docker - 1/4 point***
 
-  ## ***b) InterestingPicture running on Heroku – the rest***
+  ## ***b) InterestingPicture running on Codespaces – 3/4 point***
 
 ---  
