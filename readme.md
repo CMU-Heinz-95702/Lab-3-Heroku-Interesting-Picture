@@ -3,7 +3,15 @@
 
 ***For Lab 3, the 1/4 point checkpoint is due to your specific TA during your lab session.*** The full lab is due before Monday's lecture, 2:00 PM EST 6-Feb-2023. The final checkpoint can be shown to any TA.
 
-After this lab, you will be able to: create a local Docker container to run a servlet; create a Docker container in the cloud for that same servlet; understand basic Cloud terminology; and explain the trade-offs of using containers in the Cloud.
+What to do:
+- (intro) Read a little (here and/or on the web) about Docker containers
+- (Part 1) Install Docker Desktop and run InterestingPicture inside a container on your laptop. That's the **1/4 point checkpoint.**
+- (Part 2) Create a Codespaces account in the Cloud and run your Docker container there. That's the **3/4 point full lab.**
+- (Part 3) Read a little (on the web) about the Cloud. This is not part of the lab credit, but **it will be covered on the exam.**
+
+After this lab, you will be able to: create a local Docker container to run a servlet; run a Docker container in the cloud for that same servlet; understand basic Cloud terminology; and explain the trade-offs of using containers in the Cloud.
+
+## Introduction: Containers
 
 ___Docker___ is a technology for creating containerized applications - that is, your application runs inside a portable container that has all the elements needed to run that application. "Container" means a __process__ (running program) that executes on a machine. "Portable" means the container can be executed on your laptop or moved to another machine - like a cloud server. The container is isolated from other processes on the host machine, so if it crashes, it shouldn't take any other processes down. There are a few issues with isolation, though - for example, the ports that a regular process can access via sockets must be mapped from the container's internal (virtual) ports to the host's actual ports. Systems can be composed of multiple containers that typically use some other technology (like [Kubernetes](https://kubernetes.io/)) to talk to each other (instead of low level port access). See Docker's [documentation](https://docs.docker.com/) for more details. At the end of the lab, there's a reading assignment about Docker.
 
@@ -174,14 +182,14 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
 
 2. Create a new repository on github named Lab3; make it private. You can add a README file if you'd like, but it's not required.
 
-3. In the Lab3 repo, click the Add file drop-down and choose Upload Files. Drag and drop your Dockerfile and ROOT.war. At the bottom, click Commit Changes.
+3. In the Lab3 repo, click the "Upload an Existing File" link. Drag and drop your Dockerfile and ROOT.war. At the bottom, click Commit Changes.
 
 ### 2.2 Get started with Codespaces
-1. Go to [Codespaces](https://github.com/features/codespaces). You can browse this page and its links as needed. Click Get started for free.
+1. Go to [Codespaces](https://github.com/features/codespaces). You can browse this page and its links as needed. The [Quickstart](https://docs.github.com/en/codespaces/getting-started/quickstart) page is useful. Click Get started for free.
 
 2. Click New codespace. Click Select a repository, choose your Lab3 repo. Click main, US East, 2-core (the free mode), and Create codespace.
 
-3. The files from Lab3 should show up on the left side. You should be able to view them. On the right side, click the +file (it's an open square) icon, name the new file devcontainer.json. Edit the file to contain these lines:
+3. The files from Lab3 should show up on the left side (you may have to click the Explorer icon - roll your cursor over the icons on the left). You should be able to view them. Hover the cursor on the three-line icon on the left side and click the +file (it's an open square) icon, name the new file devcontainer.json. Edit the file to contain these lines:
 
 ```
 {
@@ -192,17 +200,25 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
 }
 ```
 
-4. <something something> When asked, Do you want to add Docker extensions?, answer yes. The Docker logo and some Information should appear.
+4. If asked, Do you want to add Docker extensions?, answer yes. The Docker logo and some Information should appear.
 
-5. Do the same Docker commands as in Part 1:
+5. If the terminal is already showing in the lower section, click into it; if not, click on the Terminal tab. Do the same Docker commands as in Part 1:
 
         docker build -t interesting_picture .
         docker images
         docker run --rm -it -p 8080:8080 interesting_picture
 
-InterestingPicture should run in a browser window.        
+A button should appear that asks, Run in browser? Answer Yes, an dInterestingPicture should run in a browser window. Test it out.
 
-6. Copy the address in the browser bar; it will have some wacky auto-generated name. Open a new browser tab and copy the address, just to see that this address works on its own.
+6. The address bar should show something in this form:
+
+https://<your-github-name>-<autogenerated-app-name>-8080.preview.app.github.dev/getAnInterestingPicture?searchWord=cat
+
+Copy the address in the browser bar. Open a new browser tab and paste the address, just to see that this address works on its own.
+
+7. Back in the Codespaces Terminal, **type Control-C** to stop the container. Remember to do this or you may use up your free hours on Codespaces.
+
+To see your usage, to to github, click on your profile icon in the upper right corner, choose Settings then Access. Scroll down to the Codespaces section for your hours and storage usage. (See [Github Docs](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/viewing-your-github-codespaces-usage) for details.)
 
 ## Part 3: Cloud and Containers Concepts
 
