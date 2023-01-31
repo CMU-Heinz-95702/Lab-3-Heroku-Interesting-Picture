@@ -15,11 +15,11 @@ After this lab, you will be able to: create a local Docker container to run a se
 
 ___Docker___ is a technology for creating containerized applications - that is, your application runs inside a portable container that has all the elements needed to run that application. "Container" means a __process__ (running program) that executes on a machine. "Portable" means the container can be executed on your laptop or moved to another machine - like a cloud server. The container is isolated from other processes on the host machine, so if it crashes, it shouldn't take any other processes down. There are a few issues with isolation, though - for example, the ports that a regular process can access via sockets must be mapped from the container's internal (virtual) ports to the host's actual ports. Systems can be composed of multiple containers that typically use some other technology (like [Kubernetes](https://kubernetes.io/)) to talk to each other (instead of low level port access). See Docker's [documentation](https://docs.docker.com/) for more details. At the end of the lab, there's a reading assignment about Docker.
 
-A Docker __image__ is an executable file created from a Dockerfile containing all the Docker commands needed to make the image plus a self-contained application. For example, a Web servlet must be packaged as a [war](https://en.wikipedia.org/wiki/WAR_(file_format)#:~:text=In%20software%20engineering%2C%20a%20WAR,that%20together%20constitute%20a%20web) file for use here. When the image is created, it will have an auto-generated name (like "admiring_tereshkova") - you can rename it if you'd like - and the image will have a separate UUID (unique identifier) and image name different than the auto-generated name.
+A Docker __image__ is an executable file created from a Dockerfile containing all the Docker commands needed to make the image plus a self-contained application. For example, a Web servlet must be packaged as a [war](https://en.wikipedia.org/wiki/WAR_(file_format)#:~:text=In%20software%20engineering%2C%20a%20WAR,that%20together%20constitute%20a%20web) file for use here. When the image is created, it will have an assigned UUID (unique identifier) and image name.
 
 The Docker commands used in the lab are all preceded by "docker"; they are case-sensitive; and when you create the Dockerfile, it ___must___ be in Linux-style format: no ".txt" on the end, and Unix line endings (see below for details).
 
-This lab will get you to install Docker on your laptop, run Interesting Picture as a Docker image, then push that image to the cloud (we'll be using Heroku). As you work through the commands, be sure to reflect on them by asking yourself these questions: What is each command's purpose? What software is being used by this command? How does this fit into a Distributed Systems context?
+This lab will get you to install Docker on your laptop, run Interesting Picture as a Docker image, then push that image to the cloud (we'll be using Codespaces). As you work through the commands, be sure to reflect on them by asking yourself these questions: What is each command's purpose? What software is being used by this command? How does this fit into a Distributed Systems context?
 
 ### Warning! If you are running Windows Home Edition, upgrade to Educational or Pro before doing this lab!
 
@@ -162,7 +162,7 @@ It will display something like this (details will vary; "hello world" will likel
 
         http://localhost:8080/
 
-- you should see your app running. Test it to make sure it works correctly (again, use the port number from the run command if 8080 didn’t work for you). After showing the running app to your TA, kill the program in the CMD or terminal window with ctrl-C.
+- you should see your app running. Test it to make sure it works correctly (again, use the port number from the run command if 8080 didn’t work for you). After showing the running app to your TA, **kill the program in the CMD or terminal window with ctrl-C.**
 
 ---
 
@@ -189,7 +189,7 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
 
 2. Click New codespace. Click Select a repository, choose your Lab3 repo. Click main, US East, 2-core (the free mode), and Create codespace.
 
-3. The files from Lab3 should show up on the left side (you may have to click the Explorer icon - roll your cursor over the icons on the left). You should be able to view them. Hover the cursor on the three-line icon on the left side and click the +file (it's an open square) icon, name the new file devcontainer.json. Edit the file to contain these lines:
+3. The files from Lab3 should show up on the left side (you may have to click the Explorer icon - roll your cursor over the icons on the left). You should be able to view them. Hover the cursor on the three-line icon on the left side and click File->New file, name the new file devcontainer.json. Edit the file to contain these lines:
 
 ```
 {
@@ -200,7 +200,7 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
 }
 ```
 
-4. If asked, Do you want to add Docker extensions?, answer yes. The Docker logo and some Information should appear.
+4. If asked, Do you want to install Docker extensions?, click Install. The Docker logo and some Information should appear.
 
 5. If the terminal is already showing in the lower section, click into it; if not, click on the Terminal tab. Do the same Docker commands as in Part 1:
 
@@ -218,7 +218,7 @@ Copy the address in the browser bar. Open a new browser tab and paste the addres
 
 7. Back in the Codespaces Terminal, **type Control-C** to stop the container. Remember to do this or you may use up your free hours on Codespaces.
 
-To see your usage, to to github, click on your profile icon in the upper right corner, choose Settings then Access. Scroll down to the Codespaces section for your hours and storage usage. (See [Github Docs](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/viewing-your-github-codespaces-usage) for details.)
+To see your usage, go to github, click on your profile icon in the upper right corner, choose Settings then Billing and Plans. Scroll down to the Codespaces section for your hours and storage usage. (See [Github Docs](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/viewing-your-github-codespaces-usage) for details.)
 
 ## Part 3: Cloud and Containers Concepts
 
