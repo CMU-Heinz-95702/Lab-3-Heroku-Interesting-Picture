@@ -175,50 +175,37 @@ It will display something like this (details will vary; "hello world" will likel
 
 Recall that the ***cloud*** is a fancy term for "someone else's servers". Some useful properties of cloud computing include not having to buy hardware, not needing to keep system software (like operating systems) up-to-date, not worrying about exactly where your application is running (although you should think about some possible downsides of that - for example, how is security handled in the cloud? What is the network latency of connecting to the application?), the ability to scale  - up or down - the number of servers in use based on current demand, and geographic placement to put servers closer to clients.
 
-In this lab, you'll use [Codespaces](https://github.com/features/codespaces) which has a free tier for small-scale use. As you can see from the URL, it is part of github (owned by Microsoft) Other commercial cloud providers include [Amazon AWS](https://aws.amazon.com/), [Alibaba Cloud](https://us.alibabacloud.com/en), and [Heroku](https://heroku.com)
+In this lab, you'll use [Codespaces](https://github.com/features/codespaces) which has a free tier for small-scale use. As you can see from the URL, it is part of GitHub (owned by Microsoft) Other commercial cloud providers include [Amazon AWS](https://aws.amazon.com/), [Alibaba Cloud](https://us.alibabacloud.com/en), and [Heroku](https://heroku.com)
 
-### 2.1 Get started with the github
-1. If you already have a github account, use that. If you do not have a github account, go to [github.com](https://github.com) and create one
+### 2.1 Get started with the GitHub
+1. If you already have a GitHub account, use that. If you do not have a GitHub account, go to [github.com](https://github.com) and create one.
 
-2. Create a new repository on github named Lab3; make it private. You can add a README file if you'd like, but it's not required.
+2. Create a new repository on GitHub named Lab3; make it private. You can add a README file if you'd like, but it's not required.
 
-3. In the Lab3 repo, click the "Upload an Existing File" link. Drag and drop your Dockerfile and ROOT.war. At the bottom, click Commit Changes.
+3. Download the .devcontainer.json and Dockerfile from this repository. The Dockerfile is different from the one you create to run docker locally. 
+
+4. In the Lab3 repo, click the "Upload an Existing File" link. Drag and drop the .devcontainer.json and Dockerfile you downloaded previously. Do the same for the ROOT.war you created in Part 1 so you will have three files in your repository. At the bottom, click Commit Changes.
 
 ### 2.2 Get started with Codespaces
-1. Go to [Codespaces](https://github.com/features/codespaces). You can browse this page and its links as needed. The [Quickstart](https://docs.github.com/en/codespaces/getting-started/quickstart) page is useful. Click Get started for free.
+1. In your repository page, click the green <> Code dropdown button, select the Codespaces tab, and then click on "Create codespace on master".
 
-2. Click New codespace. Click Select a repository, choose your Lab3 repo. Click main, US East, 2-core (the free mode), and Create codespace.
+2. A window with the note "Setting up your codespace" will appear. Wait until this process is done and you will be redirected to the Codespace page.
 
-3. The files from Lab3 should show up on the left side (you may have to click the Explorer icon - roll your cursor over the icons on the left). You should be able to view them. Hover the cursor on the three-line icon on the left side and click File->New file, name the new file devcontainer.json. Edit the file to contain these lines:
+3. Wait again until the Terminal tab shows that Catalina (the Servlet container) is running. It will show "Running postCreateCommand...  › catalina.sh run" , specifically. You should also see a "1" next to the Ports tab. Click on the Ports tab and you should see that port 8080 has been made available.
 
-```
-{
-    "build": {
-        "dockerfile": "Dockerfile",
-        "forwardPorts": [8080]
-    }
-}
-```
+4.Hover your mouse over the item in Local address column of the port 8080 line. You will find three icons. The leftmost is to copy the URL of your deployed application, and the middle one (a globe icon) is to launch that URL in a browser.
 
-4. If asked, Do you want to install Docker extensions?, click Install. The Docker logo and some Information should appear.
-
-5. If the terminal is already showing in the lower section, click into it; if not, click on the Terminal tab. Do the same Docker commands as in Part 1:
-
-        docker build -t interesting_picture .
-        docker images
-        docker run --rm -it -p 8080:8080 interesting_picture
-
-A button should appear that asks, Run in browser? Answer Yes, an dInterestingPicture should run in a browser window. Test it out.
+5. Clicking on the globe icon is a quick way to test, and you will see the Interesting Picture in the browser.
 
 6. The address bar should show something in this form:
 
 https://<your-github-name>-<autogenerated-app-name>-8080.preview.app.github.dev/getAnInterestingPicture?searchWord=cat
 
-Copy the address in the browser bar. Open a new browser tab and paste the address, just to see that this address works on its own.
+7. Copy the address in the browser bar. Open a new browser tab and paste the address, just to see that this address works on its own.
 
-7. Back in the Codespaces Terminal, **type Control-C** to stop the container. Remember to do this or you may use up your free hours on Codespaces.
+8. Back in the Codespaces Terminal, **type Control-C** to stop the container. Remember to do this or you may use up your free hours on Codespaces.
 
-To see your usage, go to github, click on your profile icon in the upper right corner, choose Settings then Billing and Plans. Scroll down to the Codespaces section for your hours and storage usage. (See [Github Docs](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/viewing-your-github-codespaces-usage) for details.)
+To see your usage, go to github, click on your profile icon in the upper right corner, choose Settings, and then Billing and Plans. Scroll down to the Codespaces section for your hours and storage usage. (See [Github Docs](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/viewing-your-github-codespaces-usage) for details.)
 
 ## Part 3: Cloud and Containers Concepts
 
