@@ -181,7 +181,7 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
 
 2. Click New codespace. Click Select a repository, choose your Lab3 repo. Click main, US East, 2-core (the free mode), and Create codespace.
 
-3. The files from Lab3 should show up on the left side. You should be able to view them. On the right side, click the +file (it's an open square) icon, name the new file devcontainer.json. Edit the file to contain these lines:
+3. The files from Lab3 should show up on the left side. You should be able to view them. On the top of the left side, click the +file (it's an open square) icon (alternatively, click the three-line icon in the upper left; choose File->new text file), name the new file **devcontainer.json**. Edit the file to contain these lines:
 
 ```
 {
@@ -191,6 +191,8 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
     }
 }
 ```
+
+Save the file; you many have to rename it after that.
 
 4. <something something> When asked, Do you want to add Docker extensions?, answer yes. The Docker logo and some Information should appear.
 
