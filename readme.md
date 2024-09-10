@@ -82,9 +82,9 @@ The command they suggest trying runs a container with an Ubuntu (linux) command 
 
 1. Creating a war file (for all the details, see https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-ee-application.html)
 
-First, create a directory (folder) called "docker"; remember where it is.
+**First**, create a directory (folder) called "docker"; remember where it is. Open a terminal (Mac) or CMD window (Windows) and cd to that directory.
 
-Follow these "if-else-if" directions:
+**Second**, open the Lab 2 InterestingPicture project in IntelliJ. Follow these "if-else-if" directions:
 
 **If you already see the file InterestingPicture-1.0-SNAPSHOT.war ...**
 
@@ -107,13 +107,22 @@ Follow these "if-else-if" directions:
 
 **end if**
 
-You need to copy the war file, so figure out what directory it's in:  
+**Third**, copy the war file into your docker directory, but re-name it **ROOT.war**. You can do that with Finder (Mac) or File Explorer (Windows).
+
+Alternatively, do it by hand: figure out what directory it's in:  
 - right click on it to bring up its Properties, where you can see its directory path (or choose Reveal in Finder on a Mac).
-- copy the war file to your docker directory, but re-name it **ROOT.war**. It is important that you name it ***exactly*** this: it's case-sensitve.
+
+Then do:
+```
+cp <path to the file>InterestingPicture-1.0-SNAPSHOT.war ROOT.war
+```
+in a terminal (Mac); if using a CMD window (Windows), use "copy" instead of "cp".
+
+It is important that you name it ***exactly*** ROOT.war: it's case-sensitve.
 
 2. Creating a custom Docker container using Dockerfile
 
-- in the docker directory, copy the file named **Dockerfile** (note: again, name it ***exactly*** like this, capitalized, and **no** extension) from github. Save it to your docker directory. This file contains Docker commands to create a docker container with openjdk12 and Tomcat. It then removes the default web app and copies your war file to the tomcat/webapps directory.
+- in the docker directory, copy the file named **Dockerfile** (note: again, name it ***exactly*** like this, capitalized, and **no** extension) from github. Save it to your docker directory. This file contains Docker commands to create a docker container with the temurin jdk21 and Tomcat. It then removes the default web app and copies your war file to the tomcat/webapps directory.
 
 - save this file.
 
@@ -133,7 +142,7 @@ If you don't do this, Docker will not work. You'll also need to do this for the 
     ├── Dockerfile
     └── ROOT.war
 
-- open a terminal window (Mac) or CMD window (Windows), navigate to your docker directory, and build the docker image with the command (note the space and period at the end); this will take a few seconds, and you'll see docker output scrolling by.
+- in a terminal window (Mac) or CMD window (Windows), in your docker directory, build the docker image with this command (note the space and period at the end); this will take a few seconds, and you'll see docker output scrolling by.
 
         docker build -t interesting_picture .
 
