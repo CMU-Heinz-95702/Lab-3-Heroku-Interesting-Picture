@@ -219,7 +219,7 @@ InterestingPicture should run in a browser window.
 
 1. Read this article:
 
-https://www.infoworld.com/article/3077875/linux/containers-101-docker-fundamentals.html
+https://docs.docker.com/get-started/docker-overview/
 
 2. Read "A Descriptive Literature Review and Classification of Cloud Computing Research", journal pages 36 through 39 (PDF pages 3 through 6).
 
