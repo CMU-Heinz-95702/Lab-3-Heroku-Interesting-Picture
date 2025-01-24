@@ -1,9 +1,11 @@
 # 95-702 Distributed Systems for Information Systems Management
 # Lab 3 - Creating Containers and Deploying to the Cloud
 
-***For Lab 3, the 1/4 point checkpoint is due to your specific TA during your lab session.*** The full lab is due before Monday's lecture, 2:00 PM. The final checkpoint can be shown to any TA.
+This lab illustrates how to run a server in a container in the cloud. The application used is Interesting Picture from Lab 2. The two main tasks are to containerize that Java servlet application and then move it to the cloud. The functionality of the app will not change, only where it is running.
 
 After this lab, you will be able to: create a local Docker container to run a servlet; create a Docker container in the cloud for that same servlet; understand basic Cloud terminology; and explain the trade-offs of using containers in the Cloud.
+
+Complete Lab3_Quiz on Canvas as you work on this lab. See the checkered flags for references to the quiz questions.
 
 ___Docker___ is a technology for creating containerized applications - that is, your application runs inside a portable container that has all the elements needed to run that application. "Container" means a __process__ (running program) that executes on a machine. "Portable" means the container can be executed on your laptop or moved to another machine - like a cloud server. The container is isolated from other processes on the host machine, so if it crashes, it shouldn't take any other processes down. There are a few issues with isolation, though - for example, the ports that a regular process can access via sockets must be mapped from the container's internal (virtual) ports to the host's actual ports. Systems can be composed of multiple containers that typically use some other technology (like [Kubernetes](https://kubernetes.io/)) to talk to each other (instead of low level port access). See Docker's [documentation](https://docs.docker.com/) for more details. At the end of the lab, there's a reading assignment about Docker.
 
@@ -19,7 +21,7 @@ This lab will get you to install Docker on your laptop, run Interesting Picture 
 
 ### 1.1 Install Docker
 
-This part of the lab installs the Docker daemon on your laptop so that you can run Docker containers there.
+This part of the lab installs the Docker Desktop daemon on your laptop so that you can run Docker containers there.
 
 1. Go to
 
@@ -27,7 +29,7 @@ https://docs.docker.com/install/
 
 and Install Docker CE (Community Edition) according to your system.  Scroll down to find links for Mac and Windows downloads.
 
-2. After installation, make sure you have the Docker daemon running in the background. Open a CMD window (Windows) or terminal (Mac or Linux). Use the command
+2. After installation, make sure you have the Docker daemon running in the background. Open a **CMD window** (Windows) or **terminal** (Mac or Linux). Use the command
 
         docker ps
 
@@ -35,16 +37,17 @@ to check if it is running. (All commands are preceded by "docker".) You should s
 
         CONTAINER ID    IMAGE   COMMAND CREATED STATUS  PORTS   NAMES
 
-***Windows Note: if you don't see the above output and you're using Windows:***
+There are sometimes problems running Docker on Windows because it runs in a virtual machine.  ***Windows Note: if you don't see the above output and you're using Windows:***
 
-From former TA Joseph Perrino:
->If a Windows machine runs into an error where docker ps does not work after installing Docker and/or they get some kind of infinitely looping error that says there’s some issue with Docker Desktop when clicking on its settings, do the following:
+>> From former TA Joseph Perrino:
 
->Completely uninstall Docker (probably through Settings > Apps > Docker > Uninstall). This may also require removing references to Docker in the Windows Registrar.
+>>If a Windows machine runs into an error where docker ps does not work after installing Docker and/or they get some kind of infinitely looping error that says there’s some issue with Docker Desktop when clicking on its settings, do the following:
 
->Enable HyperV on Windows 10 using PowerShell via this link: https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v
+>>Completely uninstall Docker (probably through Settings > Apps > Docker > Uninstall). This may also require removing references to Docker in the Windows Registrar.
 
->Restart your computer. Run the commands in that link again to verify HyperV is installed. Follow the instructions in this link: https://andrewlock.net/installing-docker-desktop-for-windows/
+>>Enable HyperV on Windows 10 using PowerShell via this link: https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v
+
+>>Restart your computer. Run the commands in that link again to verify HyperV is installed. Follow the instructions in this link: https://andrewlock.net/installing-docker-desktop-for-windows/
 
 ***End of Windows note***
 
@@ -76,20 +79,30 @@ From former TA Joseph Perrino:
         For more examples and ideas, visit:
          https://docs.docker.com/get-started/
 
-The command they suggest trying runs a container with an Ubuntu (linux) command shell; there's no need to run it.
+The command they suggest trying runs a container with an Ubuntu (linux) command shell; there's no need to run it, but try it if you'd like. If you do, you'll be running a linux shell - type "exit" to exit it.
+
+5. Look at the Docker Desktop screen for the running Containers. In the CMD or terminal window, type
+
+        docker container ls --all
+
+
+### :checkered_flag: Answer question 1 on the Canvas quiz named Lab3_Quiz.
 
 ### 1.2 Creating a Custom Docker Container
 
 1. Creating a war file (for all the details, see https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-ee-application.html)
 
-**First**, create a directory (folder) called "docker"; remember where it is. Open a terminal (Mac) or CMD window (Windows) and cd to that directory.
+**First**, in your file system (Windows FileManager or Mac Finder), create a directory (folder) called "docker"; ***and remember where it is***. Open a terminal (Mac) or CMD window (Windows) and cd to that directory.
 
 **Second**, open the Lab 2 InterestingPicture project in IntelliJ. Follow these "if-else-if" directions:
 
 **If you already see the file InterestingPicture-1.0-SNAPSHOT.war ...**
 
-- ... somewhere in your project panel, you don't have to do the Build part below. The war file would be in the target directory (or possibly in the target/out directory).
+- ... somewhere in your project panel, you don't have to do the Build part below. The war file would be in the **target** directory (or possibly in the target/out directory) - you may have to expand target to see it. See Figure 1.
 
+![Figure 1](figure1.png)
+
+***Figure 1***
 
 **else in IntelliJ, click Build->Build Artifacts. If one of the choices is "InterestingPicture:war" ...**
 
@@ -120,9 +133,11 @@ in a terminal (Mac); if using a CMD window (Windows), use "copy" instead of "cp"
 
 It is important that you name it ***exactly*** ROOT.war: it's case-sensitve.
 
+### :checkered_flag: Answer question 2 on the Canvas quiz named Lab3_Quiz.
+
 2. Creating a custom Docker container using Dockerfile
 
-- in the docker directory, copy the file named **Dockerfile** (note: again, name it ***exactly*** like this, capitalized, and **no** extension) from github. Save it to your docker directory. This file contains Docker commands to create a docker container with the temurin jdk21 and Tomcat. It then removes the default web app and copies your war file to the tomcat/webapps directory.
+- in the docker directory, copy the file named **Dockerfile** (note: again, name it ***exactly*** like this, capitalized, and **no** extension) from github. ***DO NOT*** just download it - you'll get the HTML version of it, and that will not work; copy its contents. Save it to your docker directory. This file contains Docker commands to create a docker container with the temurin jdk21 and Tomcat. It then removes the default web app and copies your war file to the tomcat/webapps directory.
 
 - save this file.
 
@@ -163,11 +178,11 @@ It will display something like this (details will vary; "hello world" will likel
 
         http://localhost:8080/
 
-- you should see your app running. Test it to make sure it works correctly (again, use the port number from the run command if 8080 didn’t work for you). After showing the running app to your TA, kill the program in the CMD or terminal window with ctrl-C.
+- you should see your app running. Test it to make sure it works correctly (again, use the port number from the run command if 8080 didn’t work for you). After making sure the app is running correctly, kill the program in the CMD or terminal window with ctrl-C.
 
 ---
 
-# :checkered_flag: **Checkpoint: This is the Checkpoint for Lab 3.** #
+### :checkered_flag: Answer question 3 on the Canvas quiz named Lab3_Quiz.
 
 ---
 
@@ -183,7 +198,7 @@ In this lab, you'll use [Codespaces](https://github.com/features/codespaces) whi
 
 2. Create a new repository on github named Lab3; make it private. You can add a README file if you'd like, but it's not required.
 
-3. In the Lab3 repo, click the Add file drop-down and choose Upload Files. Drag and drop your Dockerfile and ROOT.war. At the bottom, click Commit Changes.
+3. In the Lab3 repo, click the Add file drop-down and choose Upload Files. Drag and drop your Dockerfile and ROOT.war from Part 1. At the bottom, click Commit Changes.
 
 ### 2.2 Get started with Codespaces
 1. Go to [Codespaces](https://github.com/features/codespaces). You can browse this page and its links as needed. Click Get started for free.
@@ -215,6 +230,7 @@ InterestingPicture should run in a browser window.
 
 6. Copy the address in the browser bar; it will have some wacky auto-generated name. Open a new browser tab and copy the address, just to see that this address works on its own.
 
+
 ## Part 3: Cloud and Containers Concepts
 
 1. Read this article:
@@ -229,17 +245,8 @@ You must be on campus, or using the campus VPN, to view this article.
 
 3. Answer these two questions. This is not part of getting credit, but you need to know this.
 
- i) Is a service like AWS an example of IaaS, Paas, or SaaS?
+### :checkered_flag: Answer question 4 on the Canvas quiz named Lab3_Quiz.
 
- ii) What property makes Docker containers suitable for version control? (If you don't know what version control is, see this: https://en.wikipedia.org/wiki/Version_control)
+### :checkered_flag: Answer question 5 on the Canvas quiz named Lab3_Quiz.
+(If you don't know what version control is, see this: https://en.wikipedia.org/wiki/Version_control)
 
-
- ---
-
-# :checkered_flag: **LAB CREDIT:  To get full lab credit, show a TA:** #
-
-  ## ***a) InterestingPicture running in local Docker - 1/4 point***
-
-  ## ***b) InterestingPicture running on Codespaces – 3/4 point***
-
----  
