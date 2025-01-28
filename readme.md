@@ -243,8 +243,6 @@ http://aisel.aisnet.org/cgi/viewcontent.cgi?article=3672&context=cais
 
 You must be on campus, or using the campus VPN, to view this article.
 
-3. Answer these two questions. This is not part of getting credit, but you need to know this.
-
 ### :checkered_flag: Answer question 4 on the Canvas quiz named Lab3_Quiz.
 
 ### :checkered_flag: Answer question 5 on the Canvas quiz named Lab3_Quiz.
